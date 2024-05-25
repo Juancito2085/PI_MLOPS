@@ -3,5 +3,5 @@ uvicorn
 pandas
 numpy
 pyarrow
-sklearn
+scikit-learn
 json
