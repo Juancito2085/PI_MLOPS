@@ -5,21 +5,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
-#Funcion para los json
-class NpEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.integer):
-            return int(obj)
-        if isinstance(obj, np.floating):
-            return float(obj)
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        return super(NpEncoder, self).default(obj)
-
 #Funcion de recomendacion de juegos
 
 def similitud(id):
     df=pd.read_parquet("Datasets/data.parquet")
+    #revisar esto
     df['app_name']=df['app_name'].str.strip()
     if df[df['id']==id].empty:
         return "El juego no se encuentra en la base de datos"
@@ -62,6 +52,20 @@ async def developer( desarrollador : str ):
     else:
         return{'No existe el desarrollador '+ desarrollador}
 
+@app.get("/best_developer_year/{anio}",description="Devuelve el top 3 de desarrolladores con juegos MÁS recomendados por usuarios para el año dado.")
+async def best_developer_year( anio : int ):
+    #CAmbiar el año a string
+    anio=str(anio)
+    df_developers=pd.read_parquet(r'Datasets/developers.parquet')
+    if anio in df_developers['release_year'].values:
+        df_developers=df_developers[df_developers['release_year']==anio]
+        df_developers.drop(columns=['price','item_id','Negative','Neutral','Positive','False','release_year'],axis=1,inplace=True)
+        df_developers=df_developers.groupby('developer')['True'].sum()
+        df_developers=df_developers.sort_values(ascending=False)
+        respuesta=[{'Puesto '+str(i+1):df_developers.index[i]} for i in range(3)]
+        return{'Top3':respuesta}
+    else:
+        return{'Año ' +str(anio)+' no encontrado'}
 
 @app.get("/developer_reviews_analysis/{desarrollador}",description="Devuelve un diccionario con el nombre del desarrollador y la cantidad de reviews positivas y negativas")
 async def developer_reviews_analysis( desarrollador : str ):
