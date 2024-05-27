@@ -36,7 +36,7 @@ def similitud(id):
 #Creacion de la API
 app = FastAPI()
 
-@app.get("/developer/",description="Devuelve un diccionario con el nombre del desarrollador y la cantidad de items por año y la proporción de items gratis")
+@app.get("/developer/",description="Devuelve el nombre del desarrollador y la cantidad de items por año y la proporción de items gratis")
 async def developer( desarrollador : str = "Valve"):
     #Se normaliza la entrada
     desarrollador=desarrollador.title()
@@ -61,7 +61,7 @@ async def developer( desarrollador : str = "Valve"):
     else:
         return{'No existe el desarrollador '+ desarrollador}
 
-@app.get("/userdata/",description="Devuelve un diccionario con el nombre del usuario y la cantidad de reviews positivas y negativas")
+@app.get("/userdata/",description="Devuelve el nombre del usuario, el dinero gastado, el porcentaje de recomendaciones y la cantidad de items")
 async def userdata( user_id : str = "maplemage"):
     #Se cargan los datasets
     df_users=pd.read_parquet(r'Datasets/users.parquet')
@@ -114,7 +114,7 @@ async def best_developer_year( anio : int = 2015):
     else:
         return{'Año ' +str(anio)+' no encontrado'}
 
-@app.get("/developer_reviews_analysis/",description="Devuelve un diccionario con el nombre del desarrollador y la cantidad de reviews positivas y negativas")
+@app.get("/developer_reviews_analysis/",description="Devuelve el nombre del desarrollador y la cantidad de reviews positivas y negativas")
 async def developer_reviews_analysis( desarrollador : str ="Valve" ):
     #Se normaliza la entrada
     desarrollador=desarrollador.title()
