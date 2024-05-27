@@ -9,8 +9,6 @@ import json
 
 def similitud(id):
     df=pd.read_parquet("Datasets/data.parquet")
-    #revisar esto
-    df['app_name']=df['app_name'].str.strip()
     if df[df['id']==id].empty:
         return "El juego no se encuentra en la base de datos"
     df.reset_index(drop=True, inplace=True)
@@ -28,6 +26,7 @@ def similitud(id):
     most_similar_products=df.loc[most_similar_products_index,'app_name']
     return most_similar_products
 
+#Creacion de la API
 app = FastAPI()
 
 @app.get("/developer/{desarrollador}",description="Devuelve un diccionario con el nombre del desarrollador y la cantidad de items por año y la proporción de items gratis")
@@ -52,10 +51,25 @@ async def developer( desarrollador : str ):
     else:
         return{'No existe el desarrollador '+ desarrollador}
 
+@app.get("/userdata/{User_id}",description="Devuelve un diccionario con el nombre del usuario y la cantidad de reviews positivas y negativas")
+def userdata( user_id : str ):
+    df_users=pd.read_parquet(r'Datasets/users.parquet')
+    df_recc=pd.read_parquet(r'Datasets/user_recommends.parquet')
+    if user_id in df_users['user_id'].values:
+        df_users=df_users[df_users['user_id']==user_id]
+        cantidad_juegos=df_users['items_count'].values[0]
+        dinero_gastado=df_users['price'].sum().round()
+        if user_id in df_recc['user_id'].values:
+            recomendaciones = str(df_recc[df_recc['user_id']==user_id]['perc_recomm'].iloc[0])
+        else:
+            recomendaciones = "0%"
+        #respuesta={'Usuario':user_id,'Dinero gastado':dinero_gastado,'Recomendaciones':recomendaciones,'Cantidad de juegos':cantidad_juegos,}
+        return {'Usuario':user_id,'Dinero gastado':dinero_gastado,'Recomendaciones':recomendaciones,'Cantidad de juegos':int(cantidad_juegos)}
+    else:
+        return{'No existe el usuario'+ user_id}
+
 @app.get("/best_developer_year/{anio}",description="Devuelve el top 3 de desarrolladores con juegos MÁS recomendados por usuarios para el año dado.")
 async def best_developer_year( anio : int ):
-    #CAmbiar el año a string
-    anio=str(anio)
     df_developers=pd.read_parquet(r'Datasets/developers.parquet')
     if anio in df_developers['release_year'].values:
         df_developers=df_developers[df_developers['release_year']==anio]
@@ -82,5 +96,6 @@ async def developer_reviews_analysis( desarrollador : str ):
 async def recomendacion_juego( id_producto : int ):
 
     respuesta=similitud(id_producto)
+    respuesta=respuesta.tolist()
    
     return {"Recomendacion":respuesta}
