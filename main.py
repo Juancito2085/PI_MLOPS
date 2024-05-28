@@ -100,6 +100,7 @@ async def UserForGenre( genero : str = "Action"):
         df_users=df_users[df_users['user_id']==usuario]
         horas_jugadas = [{'Año': row['release_year'], 'Horas': row['playtime_forever']} for index, row in df_users.iterrows()]
         respuesta={'Usuario con mas horas jugadas para el genero '+ genero:usuario,'Horas jugadas':horas_jugadas}
+        del df_users
         return respuesta
     else:
         return {'No existe el genero ' + genero}
@@ -117,6 +118,7 @@ async def best_developer_year( anio : int = 2015):
         df_developers=df_developers.groupby('developer')['True'].sum()
         df_developers=df_developers.sort_values(ascending=False)
         respuesta=[{'Puesto '+str(i+1):df_developers.index[i]} for i in range(3)]
+        del df_developers
         return{'Top3':respuesta}
     else:
         return{'Año ' +str(anio)+' no encontrado'}
@@ -131,6 +133,7 @@ async def developer_reviews_analysis( desarrollador : str ="Valve" ):
         return {"respuesta" : "Desarrollador no encontrado"}
     else:
         respuesta=df[df['developer']==desarrollador][['Positive','Negative']].sum()
+        del df
         return {desarrollador : respuesta.to_dict()}
 
 @app.get("/recomendacion_juego/",description="Devuelve una lista con 5 juegos similares al juego ingresado")
