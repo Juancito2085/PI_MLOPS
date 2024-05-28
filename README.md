@@ -1,5 +1,7 @@
 # PI -MLOPS
-<img src="img/steam.jpg" alt="Descripción de la imagen" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
+<div align="center">
+<img src="img/steam.jpg" alt="Descripción de la imagen" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+</div>
 
 ## Introducción
 <p align="justify">
@@ -118,14 +120,14 @@ Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomen
 
 - Python 
 Se utilizo lenguaje python para este proyecto junto con las siguientes librerías
-    1) <a href="https://fastapi.tiangolo.com/">Fastapi</a>
-    2) <a href="https://www.uvicorn.org/">Uvicorn</a>
-    3) <a href="https://pandas.pydata.org/">Pandas</a>
-    4) <a href="https://numpy.org/">Numpy</a>
-    5) <a href="https://arrow.apache.org/docs/python/index.html">Pyarrow</a>
-    6) <a href="https://scikit-learn.org/stable/">Scikit-learn</a>
-    7) <a href="https://docs.python.org/es/3.12/library/ast.html">ast</a>
-    8) <a href="https://textblob.readthedocs.io/en/dev/">TextBlob</a>
+    - <a href="https://fastapi.tiangolo.com/">Fastapi</a>
+    - <a href="https://www.uvicorn.org/">Uvicorn</a>
+    - <a href="https://pandas.pydata.org/">Pandas</a>
+    - <a href="https://numpy.org/">Numpy</a>
+    - <a href="https://arrow.apache.org/docs/python/index.html">Pyarrow</a>
+    - <a href="https://scikit-learn.org/stable/">Scikit-learn</a>
+    - <a href="https://docs.python.org/es/3.12/library/ast.html">ast</a>
+    - <a href="https://textblob.readthedocs.io/en/dev/">TextBlob</a>
 </p>
 <p align="justify">
 
