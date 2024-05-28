@@ -61,6 +61,7 @@ async def developer( desarrollador : str = "Valve"):
         proporcion_gratis=proporcion_gratis.astype('str')+'%'
         #Doy formato a la respuesta
         data = [{'Año': int(year), 'Cantidad de items': int(total[year]), 'Contenido free': proporcion_gratis[year]} for year in total.index]
+        del df_developers
         return{desarrollador:data}
     else:
         return{'No existe el desarrollador '+ desarrollador}
@@ -79,6 +80,8 @@ async def userdata( user_id : str = "maplemage"):
             recomendaciones = str(df_recc[df_recc['user_id']==user_id]['perc_recomm'].iloc[0])
         else:
             recomendaciones = "0%"
+            del df_recc
+            del df_users
         return {'Usuario':user_id,'Dinero gastado':dinero_gastado,'Recomendaciones':recomendaciones,'Cantidad de juegos':int(cantidad_juegos)}
     else:
         return{'No existe el usuario'+ user_id}
