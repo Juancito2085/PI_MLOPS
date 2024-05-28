@@ -101,7 +101,7 @@ async def UserForGenre( genero : str = "Action"):
     else:
         return {'No existe el genero ' + genero}
 
-@app.get("/best_developer_year/",description="Devuelve el top 3 de desarrolladores con juegos MÁS recomendados por usuarios para el año dado.")
+@app.get("/best_developer_year/",description="Devuelve el top 3 de desarrolladores con juegos más recomendados por usuarios para el año dado.")
 async def best_developer_year( anio : int = 2015):
     #Se carga el dataset
     df_developers=pd.read_parquet(r'Datasets/developers.parquet')
@@ -124,12 +124,11 @@ async def developer_reviews_analysis( desarrollador : str ="Valve" ):
     desarrollador=desarrollador.title()
     #Se carga el dataset
     df=pd.read_parquet("Datasets/developers.parquet")
-    respuesta=df[df['developer']==desarrollador][['Positive','Negative']].sum()
-    respuesta = [f"{k} = {v}" for k, v in respuesta.items()]
     if desarrollador not in df["developer"].values:
         return {"respuesta" : "Desarrollador no encontrado"}
     else:
-        return {desarrollador : respuesta}
+        respuesta=df[df['developer']==desarrollador][['Positive','Negative']].sum()
+        return {desarrollador : respuesta.to_dict()}
 
 @app.get("/recomendacion_juego/",description="Devuelve una lista con 5 juegos similares al juego ingresado")
 async def recomendacion_juego( id_producto : int = 508290 ):
