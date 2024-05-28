@@ -36,6 +36,10 @@ def similitud(id):
 #Creacion de la API
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"Message": "PI MLOPS"}
+
 @app.get("/developer/",description="Devuelve el nombre del desarrollador y la cantidad de items por año y la proporción de items gratis")
 async def developer( desarrollador : str = "Valve"):
     #Se normaliza la entrada

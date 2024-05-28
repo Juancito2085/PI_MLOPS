@@ -1,4 +1,5 @@
 # PI -MLOPS
+<img src="img/steam.jpg" alt="Descripción de la imagen" style="display: block; margin-left: auto; margin-right: auto; width: 100%;">
 
 ## Introducción
 <p align="justify">
@@ -78,32 +79,37 @@ La idea es representar los elementos o usuarios como vectores en un espacio mult
 <p align="justify">
 Para esto se utilizó el dataset <strong>data</strong> y el sistema recomienda en base al nombre del juego, el género y la etiqueta que tenga, esto debido a que los gamers tienden a jugar juegos de similares géneros o características (englobadas en las tags).</p>
 
+<p align="justify">
+En este caso el tipo de sistema de recomendación es de tipo filtro basado en contenido donde se recomienda un artículo similar al que ve el usuario. Se debe recordar que también hay otro tipo de sistema de recomendación de fitlro colaborativo donde a usuarios similares se les recomienda a un usuario lo visto por un usuario similar.</p>
+
+<img src="img/sistema-de-recomendacion.png" alt="sistemas de recomendación">
+
 ### Endpoints
 <p align="justify">
 A continuación se dará una breve explicación de cadad Endpoint que se encontrará en la API para saber que respuesta esperar de los mismos y con que variables hay que hacer solicitudes.</p>
 
 <p align="justify">
-1) def developer( desarrollador : str ): 
+1) developer( desarrollador : str ): 
 Devuelve la cantidad de items y porcentaje de contenido gratis por año según empresa desarrolladora.</p>
 
 <p align="justify">
-2) def userdata( User_id : str ):
+2) userdata( User_id : str ):
 Devuelve la cantidad de dinero gastado por el usuario, el porcentaje de recomendación en base a los reviews y la cantidad de items.</p>
 
 <p align="justify">
-3) def UserForGenre( genero : str ):
+3) UserForGenre( genero : str ):
 Devuelve el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas por año de lanzamiento.</p>
 
 <p align="justify">
-4) def best_developer_year( año : int ):
+4) best_developer_year( año : int ):
 Devuelve el top 3 de desarrolladores con juegos mas recomendados por usuarios para el año dado.</p>
 
 <p align="justify">
-5) def developer_reviews_analysis( desarrolladora : str ):
+5) developer_reviews_analysis( desarrolladora : str ):
 Devuelve el nombre del desarrollador como llave y una lista con la cantidad total de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento como valor positivo o negativo.</p>
 
 <p align="justify">
-6) def recomendacion_juego( id de producto ):
+6) recomendacion_juego( id de producto ):
 Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
 </p>
 
@@ -112,21 +118,23 @@ Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomen
 
 - Python 
 Se utilizo lenguaje python para este proyecto junto con las siguientes librerías
-    1) fastapi
-    2) uvicorn
-    3) pandas
-    4) numpy
-    6) pyarrow
-    7) scikit-learn
-    8) ast
-    9) textblob
+    1) <a href="https://fastapi.tiangolo.com/">Fastapi</a>
+    2) <a href="https://www.uvicorn.org/">Uvicorn</a>
+    3) <a href="https://pandas.pydata.org/">Pandas</a>
+    4) <a href="https://numpy.org/">Numpy</a>
+    5) <a href="https://arrow.apache.org/docs/python/index.html">Pyarrow</a>
+    6) <a href="https://scikit-learn.org/stable/">Scikit-learn</a>
+    7) <a href="https://docs.python.org/es/3.12/library/ast.html">ast</a>
+    8) <a href="https://textblob.readthedocs.io/en/dev/">TextBlob</a>
 </p>
 <p align="justify">
 
 - Render
+
 El despliegue se realizo en Render en la capa gratuita con 512 MB de memoria ram y 0.1 CPU según su <a href="https://render.com/pricing">página web</a>.</p>
 
 <p align="justify">
 
 - Github
+
 En este repositorio se puede encontrar el archivo principal de la API, el archivo <strong>requirements.txt</strong> que contiene todas las librerias que utilizarán. En la carpeta <strong>Datasets</strong> se encuentran todos los archivos necesarios y en la carpeta <strong>Notebooks</strong> se encuentran los Jupiter Notebooks de las secciones.</p>
